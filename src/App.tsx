@@ -1,6 +1,10 @@
 import { CustomizationTabs } from "./components/navigation";
 import { useEffect, useRef } from "react";
 import { useAssets } from "./hooks";
+import { Button } from "react-aria-components";
+import RandomIcon from "@assets/icons/random-icon.svg?react";
+import DownloadIcon from "@assets/icons/download-icon.svg?react";
+import { button } from "./styles/common";
 
 export default function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -46,7 +50,19 @@ export default function App() {
       <div className="lg:space-y-10 space-y-4">
         <h1 className="lg:text-6xl text-3xl font-bold">CHARACTER GENERATOR</h1>
         <div className="grid lg:grid-cols-[max-content_1fr] lg:gap-16 gap-4">
-          <canvas ref={canvasRef} width={514} height={546}></canvas>
+          <div className="grid gap-4">
+            <canvas ref={canvasRef} width={514} height={546}></canvas>
+            <div className="grid grid-cols-2 gap-4">
+              <Button className={button({ variant: "random" })}>
+                <RandomIcon />
+                Random
+              </Button>
+              <Button className={button({ variant: "download" })}>
+                <DownloadIcon />
+                Download
+              </Button>
+            </div>
+          </div>
           <div className="flex flex-col gap-4">
             <h2 className="lg:text-2xl text-lg font-bold">Customize Look</h2>
             <CustomizationTabs className="flex-1" />

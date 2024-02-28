@@ -5,10 +5,10 @@ const transformAssets = (
   importResult: Record<string, unknown>,
   assetType: string,
 ) => {
-  const basePath = `src/assets/character-images-left-side/${assetType}`;
+  const basePublicPath = `/character-images-left-side/${assetType}`;
   return Object.entries(importResult).map(([path, module]) => {
     const fileName = path.split("/").pop()?.split(".").shift();
-    const pngPath = `${basePath}/${fileName}.png`;
+    const pngPath = `${basePublicPath}/${fileName}.png`;
     return {
       preview: module as string,
       image: pngPath,
@@ -17,7 +17,7 @@ const transformAssets = (
 };
 
 const hairsImport = import.meta.glob(
-  "../../assets/customize-look-preview-icons-right-side/hair/*.svg",
+  "@assets/customize-look-preview-icons-right-side/hair/*.svg",
   {
     query: "?url",
     import: "default",
@@ -26,17 +26,17 @@ const hairsImport = import.meta.glob(
 );
 
 const accessoriesImport = import.meta.glob(
-  "../../assets/customize-look-preview-icons-right-side/accessories/*.svg",
+  "@assets/customize-look-preview-icons-right-side/accessories/*.svg",
   { query: "?url", import: "default", eager: true },
 );
 
 const mouthsImport = import.meta.glob(
-  "../../assets/customize-look-preview-icons-right-side/mouth/*.svg",
+  "@assets/customize-look-preview-icons-right-side/mouth/*.svg",
   { query: "?url", import: "default", eager: true },
 );
 
 const nosesImport = import.meta.glob(
-  "../../assets/customize-look-preview-icons-right-side/nose/*.svg",
+  "@assets/customize-look-preview-icons-right-side/nose/*.svg",
   { query: "?url", import: "default", eager: true },
 );
 

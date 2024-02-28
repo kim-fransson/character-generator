@@ -1,4 +1,4 @@
-import BasicCharacter from "@assets/character-images-left-side/default/basic-character.png";
+import BasicCharacter from "@assets/basic-character.png";
 
 export const initialState: AssetsState = {
   updateAsset: () => {},
