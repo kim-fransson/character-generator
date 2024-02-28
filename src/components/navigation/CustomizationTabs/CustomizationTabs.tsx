@@ -33,9 +33,9 @@ const tab = tv({
   ],
 });
 
-export const CustomizationTabs = () => {
+export const CustomizationTabs = ({ className }: { className: string }) => {
   return (
-    <Tabs className="flex flex-col gap-8 border-2">
+    <Tabs className={`border-2 flex flex-col ${className}`}>
       <TabList
         aria-label="character customization"
         className="flex flex-wrap lg:gap-4 gap-2 items-center"
@@ -62,7 +62,7 @@ export const CustomizationTabs = () => {
         { id: "mouth", Component: Mouth },
         { id: "accessories", Component: Accessories },
       ].map(({ id, Component }) => (
-        <TabPanel key={id} id={id}>
+        <TabPanel className="flex-1 border-2 border-red-500" key={id} id={id}>
           <Component />
         </TabPanel>
       ))}

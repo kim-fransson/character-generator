@@ -7,7 +7,8 @@ import { focus } from "@/styles/common";
 const customizationOption = tv({
   extend: focus,
   base: [
-    "relative group cursor-pointer flex items-center justify-center border-2",
+    "relative group cursor-pointer flex items-center justify-center",
+    "border-2 border-blue-800",
   ],
 });
 
@@ -19,7 +20,7 @@ export const CustomizationList = <T extends { id: number; url: unknown }>(
       {...props}
       selectionMode="single"
       layout="grid"
-      className="grid grid-cols-3 gap-x-8 gap-y-12 items-start"
+      className="grid grid-cols-3 gap-x-8 gap-y-12 border-2 border-yellow-500 h-full"
     >
       {(item) => (
         <ListBoxItem
