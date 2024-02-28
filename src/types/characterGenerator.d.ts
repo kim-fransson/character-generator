@@ -1,6 +1,7 @@
 type AssetsState = {
   assets: Assets;
   updateAsset: (key: keyof Assets, value: string) => void;
+  randomize: () => void;
 };
 
 type Assets = {
@@ -22,4 +23,8 @@ type UpdateAssetAction = {
   };
 };
 
-type AssetAction = UpdateAssetAction;
+type Randomize = {
+  type: "RANDOMIZE";
+};
+
+type AssetAction = UpdateAssetAction | Randomize;

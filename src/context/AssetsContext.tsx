@@ -16,10 +16,17 @@ export const AssetsProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
+  const randomize = () => {
+    dispatch({
+      type: "RANDOMIZE",
+    });
+  };
+
   const memoizedValue = useMemo(() => {
     return {
       ...state,
       updateAsset,
+      randomize,
     };
   }, [state]);
 

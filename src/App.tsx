@@ -6,9 +6,11 @@ import RandomIcon from "@assets/icons/random-icon.svg?react";
 import DownloadIcon from "@assets/icons/download-icon.svg?react";
 import { button } from "./styles/common";
 
+// todo: hardcode ordering there is something you can do with canvas
+// todo: possible to remove the flickering? Persist background until change?
 export default function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { assets } = useAssets();
+  const { assets, randomize } = useAssets();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -53,7 +55,10 @@ export default function App() {
           <div className="grid gap-4">
             <canvas ref={canvasRef} width={514} height={546}></canvas>
             <div className="grid grid-cols-2 gap-4">
-              <Button className={button({ variant: "random" })}>
+              <Button
+                onPress={randomize}
+                className={button({ variant: "random" })}
+              >
                 <RandomIcon />
                 Random
               </Button>
