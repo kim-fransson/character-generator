@@ -1,12 +1,20 @@
+import {
+  Accessories,
+  Ears,
+  Eyes,
+  Hairs,
+  Mouth,
+  Nose,
+} from "@/components/collections/Customizations";
 import { focus } from "@/styles/common";
-import { Tab, TabList, Tabs } from "react-aria-components";
+import { Tab, TabList, TabPanel, Tabs } from "react-aria-components";
 import { tv } from "tailwind-variants";
 
 const tab = tv({
   extend: focus,
   base: [
     "rounded-full inline-block py-1 px-4 border-2 cursor-pointer border-light-blue text-light-blue capitalize",
-    "transition-all duration-100",
+    "transition-all duration-100 shadow-sm",
   ],
   variants: {
     isSelected: {
@@ -16,17 +24,24 @@ const tab = tv({
       true: ["animate-wiggle animate-thrice animate-duration-[400ms]"],
     },
   },
+  compoundVariants: [
+    {
+      isSelected: true,
+      isHovered: true,
+      class: "animate-none cursor-default",
+    },
+  ],
 });
 
 export const CustomizationTabs = () => {
   return (
-    <Tabs>
+    <Tabs className="flex flex-col gap-8 border-2">
       <TabList
         aria-label="character customization"
         className="flex flex-wrap lg:gap-4 gap-2 items-center"
       >
         {[
-          "hair",
+          "hairs",
           "eyes",
           "ears",
           "nose",
@@ -34,11 +49,23 @@ export const CustomizationTabs = () => {
           "background",
           "accessories",
         ].map((tabValue) => (
-          <Tab className={(states) => tab(states)} id={tabValue}>
+          <Tab key={tabValue} className={(states) => tab(states)} id={tabValue}>
             {tabValue}
           </Tab>
         ))}
       </TabList>
+      {[
+        { id: "hairs", Component: Hairs },
+        { id: "eyes", Component: Eyes },
+        { id: "ears", Component: Ears },
+        { id: "nose", Component: Nose },
+        { id: "mouth", Component: Mouth },
+        { id: "accessories", Component: Accessories },
+      ].map(({ id, Component }) => (
+        <TabPanel key={id} id={id}>
+          <Component />
+        </TabPanel>
+      ))}
     </Tabs>
   );
 };
