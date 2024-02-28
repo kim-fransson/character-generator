@@ -1,4 +1,20 @@
-import { CustomizationList } from "./CustomizationList";
+import { useAssets } from "@/hooks";
+import { AssetList, BackgroundList } from "./CustomizationLists";
+
+const transformAssets = (
+  importResult: Record<string, unknown>,
+  assetType: string,
+) => {
+  const basePath = `src/assets/character-images-left-side/${assetType}`;
+  return Object.entries(importResult).map(([path, module]) => {
+    const fileName = path.split("/").pop()?.split(".").shift();
+    const pngPath = `${basePath}/${fileName}.png`;
+    return {
+      preview: module as string,
+      image: pngPath,
+    };
+  });
+};
 
 const hairsImport = import.meta.glob(
   "../../assets/customize-look-preview-icons-right-side/hair/*.svg",
@@ -9,83 +25,132 @@ const hairsImport = import.meta.glob(
   },
 );
 
-const hairs = Object.entries(hairsImport).map(([, module], index) => ({
-  id: index + 1,
-  url: module,
-}));
-
 const accessoriesImport = import.meta.glob(
   "../../assets/customize-look-preview-icons-right-side/accessories/*.svg",
   { query: "?url", import: "default", eager: true },
 );
 
-const earsImport = import.meta.glob(
-  "../../assets/customize-look-preview-icons-right-side/ears/*.svg",
-  { query: "?url", import: "default", eager: true },
-);
-
-const eyesImport = import.meta.glob(
-  "../../assets/customize-look-preview-icons-right-side/eyes/*.svg",
-  { query: "?url", import: "default", eager: true },
-);
-
-const mouthImport = import.meta.glob(
+const mouthsImport = import.meta.glob(
   "../../assets/customize-look-preview-icons-right-side/mouth/*.svg",
   { query: "?url", import: "default", eager: true },
 );
 
-const noseImport = import.meta.glob(
+const nosesImport = import.meta.glob(
   "../../assets/customize-look-preview-icons-right-side/nose/*.svg",
   { query: "?url", import: "default", eager: true },
 );
 
-const accessories = Object.entries(accessoriesImport).map(
-  ([, module], index) => ({
-    id: index + 1,
-    url: module,
-  }),
+const earsImport = import.meta.glob(
+  "@assets/customize-look-preview-icons-right-side/ears/*.svg",
+  { query: "?url", import: "default", eager: true },
 );
 
-const ears = Object.entries(earsImport).map(([, module], index) => ({
-  id: index + 1,
-  url: module,
-}));
+const eyesImport = import.meta.glob(
+  "@assets/customize-look-preview-icons-right-side/eyes/*.svg",
+  { query: "?url", import: "default", eager: true },
+);
 
-const eyes = Object.entries(eyesImport).map(([, module], index) => ({
-  id: index + 1,
-  url: module,
-}));
-
-const mouth = Object.entries(mouthImport).map(([, module], index) => ({
-  id: index + 1,
-  url: module,
-}));
-
-const nose = Object.entries(noseImport).map(([, module], index) => ({
-  id: index + 1,
-  url: module,
-}));
+const ears = transformAssets(earsImport, "ears");
+const eyes = transformAssets(eyesImport, "eyes");
+const accessories = transformAssets(accessoriesImport, "accessories");
+const hairs = transformAssets(hairsImport, "hair");
+const mouths = transformAssets(mouthsImport, "mouth");
+const noses = transformAssets(nosesImport, "nose");
 
 export const Accessories = () => {
-  return <CustomizationList items={accessories} aria-label="accessories" />;
+  const { updateAsset } = useAssets();
+  return (
+    <AssetList
+      onSelectionChange={(selection) =>
+        updateAsset("accessory", Array.from(selection)[0] as string)
+      }
+      items={accessories}
+      aria-label="accessories"
+    />
+  );
 };
 
 export const Ears = () => {
-  return <CustomizationList items={ears} aria-label="ears" />;
+  const { updateAsset } = useAssets();
+  return (
+    <AssetList
+      onSelectionChange={(selection) =>
+        updateAsset("ears", Array.from(selection)[0] as string)
+      }
+      items={ears}
+      aria-label="ears"
+    />
+  );
 };
 
 export const Eyes = () => {
-  return <CustomizationList items={eyes} aria-label="eyes" />;
+  const { updateAsset } = useAssets();
+  return (
+    <AssetList
+      onSelectionChange={(selection) =>
+        updateAsset("eyes", Array.from(selection)[0] as string)
+      }
+      items={eyes}
+      aria-label="eyes"
+    />
+  );
 };
 
 export const Hairs = () => {
-  return <CustomizationList items={hairs} aria-label="hairs" />;
+  const { updateAsset } = useAssets();
+  return (
+    <AssetList
+      onSelectionChange={(selection) =>
+        updateAsset("hair", Array.from(selection)[0] as string)
+      }
+      items={hairs}
+      aria-label="hairs"
+    />
+  );
 };
 
-export const Mouth = () => {
-  return <CustomizationList items={mouth} aria-label="mouth" />;
+export const Mouths = () => {
+  const { updateAsset } = useAssets();
+  return (
+    <AssetList
+      onSelectionChange={(selection) =>
+        updateAsset("mouth", Array.from(selection)[0] as string)
+      }
+      items={mouths}
+      aria-label="mouths"
+    />
+  );
 };
 
-export const Nose = () => {
-  return <CustomizationList items={nose} aria-label="nose" />;
+export const Noses = () => {
+  const { updateAsset } = useAssets();
+  return (
+    <AssetList
+      onSelectionChange={(selection) =>
+        updateAsset("nose", Array.from(selection)[0] as string)
+      }
+      items={noses}
+      aria-label="noses"
+    />
+  );
+};
+
+export const Backgrounds = () => {
+  const { updateAsset } = useAssets();
+  return (
+    <BackgroundList
+      onSelectionChange={(selection) =>
+        updateAsset("background", Array.from(selection)[0] as string)
+      }
+      items={[
+        { color: "#d2d2d2" },
+        { color: "#565dff" },
+        { color: "#c956ff" },
+        { color: "#53c436" },
+        { color: "#d5d92a" },
+        { color: "#d9882a" },
+      ]}
+      aria-label="backgrounds"
+    />
+  );
 };

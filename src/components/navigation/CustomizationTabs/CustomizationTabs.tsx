@@ -1,10 +1,11 @@
 import {
   Accessories,
+  Backgrounds,
   Ears,
   Eyes,
   Hairs,
-  Mouth,
-  Nose,
+  Mouths,
+  Noses,
 } from "@/components/collections/Customizations";
 import { focus } from "@/styles/common";
 import { Tab, TabList, TabPanel, Tabs } from "react-aria-components";
@@ -33,9 +34,13 @@ const tab = tv({
   ],
 });
 
-export const CustomizationTabs = ({ className }: { className: string }) => {
+interface CustomizationTabsProps {
+  className?: string;
+}
+
+export const CustomizationTabs = ({ className }: CustomizationTabsProps) => {
   return (
-    <Tabs className={`border-2 flex flex-col ${className}`}>
+    <Tabs className={`flex flex-col gap-8 ${className}`}>
       <TabList
         aria-label="character customization"
         className="flex flex-wrap lg:gap-4 gap-2 items-center"
@@ -58,11 +63,12 @@ export const CustomizationTabs = ({ className }: { className: string }) => {
         { id: "hairs", Component: Hairs },
         { id: "eyes", Component: Eyes },
         { id: "ears", Component: Ears },
-        { id: "nose", Component: Nose },
-        { id: "mouth", Component: Mouth },
+        { id: "nose", Component: Noses },
+        { id: "mouth", Component: Mouths },
+        { id: "background", Component: Backgrounds },
         { id: "accessories", Component: Accessories },
       ].map(({ id, Component }) => (
-        <TabPanel className="flex-1 border-2 border-red-500" key={id} id={id}>
+        <TabPanel className="flex-1" key={id} id={id}>
           <Component />
         </TabPanel>
       ))}

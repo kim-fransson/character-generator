@@ -1,3 +1,8 @@
+type AssetsState = {
+  assets: Assets;
+  updateAsset: (key: keyof Assets, value: string) => void;
+};
+
 type Assets = {
   background: string;
   base: string;
@@ -6,5 +11,15 @@ type Assets = {
   ears?: string;
   nose?: string;
   mouth?: string;
-  accessories?: string;
+  accessory?: string;
 };
+
+type UpdateAssetAction = {
+  type: "UPDATE_ASSET";
+  payload: {
+    key: keyof Assets;
+    value: string;
+  };
+};
+
+type AssetAction = UpdateAssetAction;
