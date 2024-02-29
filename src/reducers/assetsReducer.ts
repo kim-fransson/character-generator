@@ -10,6 +10,14 @@ export const initialState: AssetsState = {
   assets: {
     background: { value: "#d2d2d2" },
     base: { value: BasicCharacter },
+    hair: { value: "/character-images-left-side/hair/hair-1.png" },
+    eyes: { value: "/character-images-left-side/eyes/eyes-1.png" },
+    ears: { value: "/character-images-left-side/ears/ears-4.png" },
+    nose: { value: "/character-images-left-side/nose/nose-2.png" },
+    mouth: { value: "/character-images-left-side/mouth/mouth-4.png" },
+    accessory: {
+      value: "/character-images-left-side/accessories/accessory-2.png",
+    },
   },
 };
 
