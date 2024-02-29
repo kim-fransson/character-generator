@@ -3,12 +3,28 @@ import { useAssets } from "./hooks";
 import { Button } from "react-aria-components";
 import RandomIcon from "@assets/icons/random-icon.svg?react";
 import DownloadIcon from "@assets/icons/download-icon.svg?react";
+import InfoIcon from "@assets/icons/info-icon.svg?react";
+
 import { button } from "./styles/common";
 import { Character } from "./components/displays/Character";
 import { Assets } from "./types/characterGenerator";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   const { assets, randomize } = useAssets();
+  const notify = () =>
+    toast(
+      <div className="flex items-center gap-2 font-semibold">
+        <InfoIcon />
+        Image has been downloaded
+      </div>,
+      {
+        style: { background: "#5a8ce4", color: "white" },
+        closeButton: false,
+      },
+    );
 
   return (
     <main className="min-h-dvh flex p-4 lg:items-center lg:justify-center">
@@ -26,7 +42,10 @@ export default function App() {
                 Random
               </Button>
               <Button
-                onPress={() => downloadCharacterAsPNG(assets)}
+                onPress={async () => {
+                  await downloadCharacterAsPNG(assets);
+                  notify();
+                }}
                 className={button({ variant: "download" })}
               >
                 <DownloadIcon />
@@ -40,6 +59,19 @@ export default function App() {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+        transition={Bounce}
+      />
     </main>
   );
 }
