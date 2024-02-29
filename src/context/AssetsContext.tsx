@@ -1,5 +1,12 @@
 import { assetsReducer, initialState } from "@/reducers/assetsReducer";
-import { PropsWithChildren, createContext, useMemo, useReducer } from "react";
+import { Assets } from "@/types/characterGenerator";
+import {
+  PropsWithChildren,
+  RefObject,
+  createContext,
+  useMemo,
+  useReducer,
+} from "react";
 
 export const AssetContext = createContext(initialState);
 
@@ -16,6 +23,19 @@ export const AssetsProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
+  const updateCanvasRef = (
+    key: keyof Assets,
+    canvasRef: RefObject<HTMLCanvasElement>,
+  ) => {
+    dispatch({
+      type: "UPDATE_CANVAS_REF",
+      payload: {
+        key,
+        canvasRef,
+      },
+    });
+  };
+
   const randomize = () => {
     dispatch({
       type: "RANDOMIZE",
@@ -27,6 +47,7 @@ export const AssetsProvider = ({ children }: PropsWithChildren) => {
       ...state,
       updateAsset,
       randomize,
+      updateCanvasRef,
     };
   }, [state]);
 

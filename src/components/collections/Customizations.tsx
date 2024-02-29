@@ -3,7 +3,7 @@ import { AssetList, BackgroundList } from "./CustomizationLists";
 import { accessories, ears, eyes, hairs, mouths, noses } from "@/data/assets";
 
 export const Accessories = () => {
-  const { updateAsset } = useAssets();
+  const { updateAsset, assets } = useAssets();
   return (
     <AssetList
       onSelectionChange={(selection) =>
@@ -11,12 +11,13 @@ export const Accessories = () => {
       }
       items={accessories}
       aria-label="accessories"
+      selectedKeys={[assets.accessory?.value ?? ""]}
     />
   );
 };
 
 export const Ears = () => {
-  const { updateAsset } = useAssets();
+  const { updateAsset, assets } = useAssets();
   return (
     <AssetList
       onSelectionChange={(selection) =>
@@ -24,12 +25,13 @@ export const Ears = () => {
       }
       items={ears}
       aria-label="ears"
+      selectedKeys={[assets.ears?.value ?? ""]}
     />
   );
 };
 
 export const Eyes = () => {
-  const { updateAsset } = useAssets();
+  const { updateAsset, assets } = useAssets();
   return (
     <AssetList
       onSelectionChange={(selection) =>
@@ -37,12 +39,13 @@ export const Eyes = () => {
       }
       items={eyes}
       aria-label="eyes"
+      selectedKeys={[assets.eyes?.value ?? ""]}
     />
   );
 };
 
 export const Hairs = () => {
-  const { updateAsset } = useAssets();
+  const { updateAsset, assets } = useAssets();
   return (
     <AssetList
       onSelectionChange={(selection) =>
@@ -50,12 +53,13 @@ export const Hairs = () => {
       }
       items={hairs}
       aria-label="hairs"
+      selectedKeys={[assets.hair?.value ?? ""]}
     />
   );
 };
 
 export const Mouths = () => {
-  const { updateAsset } = useAssets();
+  const { updateAsset, assets } = useAssets();
   return (
     <AssetList
       onSelectionChange={(selection) =>
@@ -63,12 +67,13 @@ export const Mouths = () => {
       }
       items={mouths}
       aria-label="mouths"
+      selectedKeys={[assets.mouth?.value ?? ""]}
     />
   );
 };
 
 export const Noses = () => {
-  const { updateAsset } = useAssets();
+  const { updateAsset, assets } = useAssets();
   return (
     <AssetList
       onSelectionChange={(selection) =>
@@ -76,12 +81,13 @@ export const Noses = () => {
       }
       items={noses}
       aria-label="noses"
+      selectedKeys={[assets.nose?.value ?? ""]}
     />
   );
 };
 
 export const Backgrounds = () => {
-  const { updateAsset } = useAssets();
+  const { updateAsset, assets } = useAssets();
   return (
     <BackgroundList
       onSelectionChange={(selection) =>
@@ -96,6 +102,7 @@ export const Backgrounds = () => {
         { color: "#d9882a" },
       ]}
       aria-label="backgrounds"
+      selectedKeys={[assets.background?.value ?? ""]}
     />
   );
 };

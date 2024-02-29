@@ -1,51 +1,14 @@
 import { CustomizationTabs } from "./components/navigation";
-import { useEffect, useRef } from "react";
 import { useAssets } from "./hooks";
 import { Button } from "react-aria-components";
 import RandomIcon from "@assets/icons/random-icon.svg?react";
 import DownloadIcon from "@assets/icons/download-icon.svg?react";
 import { button } from "./styles/common";
+import { Character } from "./components/displays/Character";
+import { Assets } from "./types/characterGenerator";
 
-// todo: hardcode ordering there is something you can do with canvas
-// todo: possible to remove the flickering? Persist background until change?
 export default function App() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const { assets, randomize } = useAssets();
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d");
-
-    if (canvas && context) {
-      context.fillStyle = assets.background;
-      context.fillRect(0, 0, canvas.width, canvas.height);
-
-      const loadAndDrawImage = async (assetSrc: string) => {
-        return new Promise<void>((resolve, reject) => {
-          const image = new Image();
-          image.onload = () => {
-            context.drawImage(image, 0, 0);
-            resolve();
-          };
-          image.onerror = reject;
-          image.src = assetSrc;
-        });
-      };
-
-      const drawSequentially = async () => {
-        for (const key of Object.keys(assets).filter(
-          (k) => k !== "background",
-        ) as (keyof Omit<Assets, "background">)[]) {
-          const assetUrl = assets[key];
-          if (typeof assetUrl === "string") {
-            await loadAndDrawImage(assetUrl);
-          }
-        }
-      };
-
-      drawSequentially();
-    }
-  }, [assets]);
 
   return (
     <main className="min-h-dvh flex p-4 lg:items-center lg:justify-center">
@@ -53,7 +16,7 @@ export default function App() {
         <h1 className="lg:text-6xl text-3xl font-bold">CHARACTER GENERATOR</h1>
         <div className="grid lg:grid-cols-[max-content_1fr] lg:gap-16 gap-4">
           <div className="grid gap-4">
-            <canvas ref={canvasRef} width={514} height={546}></canvas>
+            <Character />
             <div className="grid grid-cols-2 gap-4">
               <Button
                 onPress={randomize}
@@ -62,7 +25,10 @@ export default function App() {
                 <RandomIcon />
                 Random
               </Button>
-              <Button className={button({ variant: "download" })}>
+              <Button
+                onPress={() => downloadCharacterAsPNG(assets)}
+                className={button({ variant: "download" })}
+              >
                 <DownloadIcon />
                 Download
               </Button>
@@ -77,3 +43,29 @@ export default function App() {
     </main>
   );
 }
+
+const downloadCharacterAsPNG = async (assets: Assets) => {
+  const combinedCanvas = document.createElement("canvas");
+  combinedCanvas.width = 514;
+  combinedCanvas.height = 546;
+  const ctx = combinedCanvas.getContext("2d");
+
+  const canvases = Object.values(assets)
+    .map((asset) => asset.canvasRef?.current)
+    .filter((curr) => curr) as HTMLCanvasElement[];
+
+  console.log({ canvases });
+
+  canvases.forEach((canvas) => {
+    ctx!.drawImage(canvas, 0, 0);
+  });
+
+  const imageURL = combinedCanvas.toDataURL("image/png");
+
+  const downloadLink = document.createElement("a");
+  downloadLink.href = imageURL;
+  downloadLink.download = "character.png";
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+};

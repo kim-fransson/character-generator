@@ -26,9 +26,7 @@ export const AssetList = <T extends { preview: string; image: string }>(
           className={(states) => customizationOption(states)}
         >
           <img src={item.preview as string} alt="" />
-          <div className="group-selected:flex hidden absolute top-1 size-6 p-0.5 items-center justify-center rounded-full right-1 bg-gray">
-            <CheckIcon />
-          </div>
+          <CheckMark />
         </ListBoxItem>
       )}
     </ListBox>
@@ -53,11 +51,17 @@ export const BackgroundList = <T extends { color: string }>(
           className={(states) => customizationOption(states)}
           style={{ background: item.color }}
         >
-          <div className="group-selected:flex hidden absolute top-1 size-6 p-0.5 items-center justify-center rounded-full right-1 bg-gray">
-            <CheckIcon />
-          </div>
+          <CheckMark />
         </ListBoxItem>
       )}
     </ListBox>
+  );
+};
+
+const CheckMark = () => {
+  return (
+    <div className="group-selected:flex hidden absolute top-1 size-6 p-0.5 items-center justify-center rounded-full right-1 bg-light-blue text-white">
+      <CheckIcon />
+    </div>
   );
 };
