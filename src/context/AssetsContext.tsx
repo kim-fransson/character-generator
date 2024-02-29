@@ -7,8 +7,6 @@ import {
   useMemo,
   useReducer,
 } from "react";
-// import isEqual from "lodash/isEqual";
-// import { parse, stringify } from "flatted";
 
 export const AssetContext = createContext(initialState);
 
@@ -43,21 +41,6 @@ export const AssetsProvider = ({ children }: PropsWithChildren) => {
       type: "RANDOMIZE",
     });
   };
-
-  // useEffect(() => {
-  //   if (localStorage.getItem("character")) {
-  //     dispatch({
-  //       type: "INIT_STORED_STATE",
-  //       value: parse(localStorage.getItem("character") as string),
-  //     });
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   if (!isEqual(state, initialState)) {
-  //     localStorage.setItem("character", stringify(state));
-  //   }
-  // }, [state]);
 
   const memoizedValue = useMemo(() => {
     return {
