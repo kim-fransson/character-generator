@@ -4,6 +4,7 @@ import BasicCharacter from "@assets/basic-character.png";
 
 export const initialState: AssetsState = {
   updateAsset: () => {},
+  randomize: () => {},
   assets: {
     background: "#d2d2d2",
     base: BasicCharacter,
