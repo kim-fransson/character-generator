@@ -86,11 +86,13 @@ const downloadCharacterAsPNG = async (assets: Assets) => {
     .map((asset) => asset.canvasRef?.current)
     .filter((curr) => curr) as HTMLCanvasElement[];
 
-  console.log({ canvases });
-
-  canvases.forEach((canvas) => {
-    ctx!.drawImage(canvas, 0, 0);
-  });
+  try {
+    canvases.forEach((canvas) => {
+      ctx!.drawImage(canvas, 0, 0);
+    });
+  } catch (e) {
+    console.log(e);
+  }
 
   const imageURL = combinedCanvas.toDataURL("image/png");
 
