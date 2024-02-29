@@ -46,4 +46,9 @@ type Randomize = {
   type: "RANDOMIZE";
 };
 
-type AssetAction = UpdateAssetAction | Randomize | UpdateCanvasRef;
+type Initialize = {
+  type: "INIT_STORED_STATE";
+  value: AssetsState;
+};
+
+type AssetAction = UpdateAssetAction | Randomize | UpdateCanvasRef | Initialize;

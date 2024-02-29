@@ -20,6 +20,8 @@ export const assetsReducer = (
   const { type } = action;
 
   switch (type) {
+    case "INIT_STORED_STATE":
+      return action.value;
     case "UPDATE_ASSET":
       return {
         ...state,
