@@ -1,44 +1,31 @@
-import { RefObject } from "react";
-
 type AssetsState = {
   assets: Assets;
-  updateAsset: (key: keyof Assets, value: string) => void;
-  updateCanvasRef: (
-    key: keyof Assets,
-    canvasRef: RefObject<HTMLCanvasElement>,
-  ) => void;
+  updateAsset: (key: AssetKey, value: string) => void;
   randomize: () => void;
 };
 
-type Assets = {
-  background: Asset;
-  base: Asset;
-  hair?: Asset;
-  eyes?: Asset;
-  ears?: Asset;
-  nose?: Asset;
-  mouth?: Asset;
-  accessory?: Asset;
-};
+type Assets = Asset[];
+
+type AssetKey =
+  | "background"
+  | "base"
+  | "hair"
+  | "eyes"
+  | "ears"
+  | "nose"
+  | "mouth"
+  | "accessory";
 
 type Asset = {
-  value: string;
-  canvasRef?: RefObject<HTMLCanvasElement>;
+  value?: string;
+  key: AssetKey;
 };
 
 type UpdateAssetAction = {
   type: "UPDATE_ASSET";
   payload: {
-    key: keyof Assets;
+    key: AssetKey;
     value?: string;
-  };
-};
-
-type UpdateCanvasRef = {
-  type: "UPDATE_CANVAS_REF";
-  payload: {
-    key: keyof Assets;
-    canvasRef?: RefObject<HTMLCanvasElement>;
   };
 };
 
@@ -46,4 +33,9 @@ type Randomize = {
   type: "RANDOMIZE";
 };
 
-type AssetAction = UpdateAssetAction | Randomize | UpdateCanvasRef;
+type InitStoredState = {
+  type: "INIT_STORED_STATE";
+  value: Assets;
+};
+
+type AssetAction = UpdateAssetAction | Randomize | InitStoredState;

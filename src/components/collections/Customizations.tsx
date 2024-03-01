@@ -11,7 +11,7 @@ export const Accessories = () => {
       }
       items={accessories}
       aria-label="accessories"
-      selectedKeys={[assets.accessory?.value ?? ""]}
+      selectedKeys={[assets.find((a) => a.key === "accessory")?.value ?? ""]}
     />
   );
 };
@@ -25,7 +25,7 @@ export const Ears = () => {
       }
       items={ears}
       aria-label="ears"
-      selectedKeys={[assets.ears?.value ?? ""]}
+      selectedKeys={[assets.find((a) => a.key === "ears")?.value ?? ""]}
     />
   );
 };
@@ -39,7 +39,7 @@ export const Eyes = () => {
       }
       items={eyes}
       aria-label="eyes"
-      selectedKeys={[assets.eyes?.value ?? ""]}
+      selectedKeys={[assets.find((a) => a.key === "eyes")?.value ?? ""]}
     />
   );
 };
@@ -53,7 +53,7 @@ export const Hairs = () => {
       }
       items={hairs}
       aria-label="hairs"
-      selectedKeys={[assets.hair?.value ?? ""]}
+      selectedKeys={[assets.find((a) => a.key === "hair")?.value ?? ""]}
     />
   );
 };
@@ -67,7 +67,7 @@ export const Mouths = () => {
       }
       items={mouths}
       aria-label="mouths"
-      selectedKeys={[assets.mouth?.value ?? ""]}
+      selectedKeys={[assets.find((a) => a.key === "mouth")?.value ?? ""]}
     />
   );
 };
@@ -81,7 +81,7 @@ export const Noses = () => {
       }
       items={noses}
       aria-label="noses"
-      selectedKeys={[assets.nose?.value ?? ""]}
+      selectedKeys={[assets.find((a) => a.key === "nose")?.value ?? ""]}
     />
   );
 };
@@ -102,7 +102,7 @@ export const Backgrounds = () => {
         { color: "#d9882a" },
       ]}
       aria-label="backgrounds"
-      selectedKeys={[assets.background?.value ?? ""]}
+      selectedKeys={[assets.find((a) => a.key === "background")?.value ?? ""]}
     />
   );
 };

@@ -1,9 +1,8 @@
 import { assetsReducer, initialState } from "@/reducers/assetsReducer";
-import { Assets } from "@/types/characterGenerator";
 import {
   PropsWithChildren,
-  RefObject,
   createContext,
+  useEffect,
   useMemo,
   useReducer,
 } from "react";
@@ -13,25 +12,12 @@ export const AssetContext = createContext(initialState);
 export const AssetsProvider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(assetsReducer, initialState);
 
-  const updateAsset = (key: keyof Assets, value: string) => {
+  const updateAsset = (key: AssetKey, value: string) => {
     dispatch({
       type: "UPDATE_ASSET",
       payload: {
         key,
         value,
-      },
-    });
-  };
-
-  const updateCanvasRef = (
-    key: keyof Assets,
-    canvasRef: RefObject<HTMLCanvasElement>,
-  ) => {
-    dispatch({
-      type: "UPDATE_CANVAS_REF",
-      payload: {
-        key,
-        canvasRef,
       },
     });
   };
@@ -42,12 +28,26 @@ export const AssetsProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("assets")) {
+      dispatch({
+        type: "INIT_STORED_STATE",
+        value: JSON.parse(localStorage.getItem("assets") as string),
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (state.assets !== initialState.assets) {
+      localStorage.setItem("assets", JSON.stringify(state.assets));
+    }
+  }, [state]);
+
   const memoizedValue = useMemo(() => {
     return {
       ...state,
       updateAsset,
       randomize,
-      updateCanvasRef,
     };
   }, [state]);
 

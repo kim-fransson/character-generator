@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {
   useAssets,
   useCanvasBackgroundDrawer,
   useCanvasImageDrawer,
 } from "@/hooks";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 export const Character = () => {
   return (
@@ -22,21 +21,17 @@ export const Character = () => {
 };
 
 const Base = () => {
-  const { assets, updateCanvasRef } = useAssets();
+  const { assets } = useAssets();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  useCanvasImageDrawer(canvasRef, assets.base.value);
-  useEffect(() => {
-    updateCanvasRef("base", canvasRef);
-  }, [canvasRef]);
+  useCanvasImageDrawer(canvasRef, assets.find((a) => a.key === "base")?.value);
   return <canvas width={514} height={546} id="base" ref={canvasRef}></canvas>;
 };
 
 const Background = () => {
-  const { assets, updateCanvasRef } = useAssets();
-  const canvasRef = useCanvasBackgroundDrawer(assets.background.value);
-  useEffect(() => {
-    updateCanvasRef("background", canvasRef);
-  }, [canvasRef]);
+  const { assets } = useAssets();
+  const canvasRef = useCanvasBackgroundDrawer(
+    assets.find((a) => a.key === "background")?.value || "black",
+  );
   return (
     <canvas width={514} height={546} id="background" ref={canvasRef}></canvas>
   );
@@ -44,61 +39,46 @@ const Background = () => {
 
 const Hair = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { assets, updateCanvasRef } = useAssets();
-  useCanvasImageDrawer(canvasRef, assets.hair?.value);
-  useEffect(() => {
-    updateCanvasRef("hair", canvasRef);
-  }, [canvasRef]);
+  const { assets } = useAssets();
+  useCanvasImageDrawer(canvasRef, assets.find((a) => a.key === "hair")?.value);
   return <canvas width={514} height={546} id="hair" ref={canvasRef}></canvas>;
 };
 
 const Eyes = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { assets, updateCanvasRef } = useAssets();
-  useCanvasImageDrawer(canvasRef, assets.eyes?.value);
-  useEffect(() => {
-    updateCanvasRef("eyes", canvasRef);
-  }, [canvasRef]);
+  const { assets } = useAssets();
+  useCanvasImageDrawer(canvasRef, assets.find((a) => a.key === "eyes")?.value);
   return <canvas width={514} height={546} id="eyes" ref={canvasRef}></canvas>;
 };
 
 const Ears = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { assets, updateCanvasRef } = useAssets();
-  useCanvasImageDrawer(canvasRef, assets.ears?.value);
-  useEffect(() => {
-    updateCanvasRef("ears", canvasRef);
-  }, [canvasRef]);
+  const { assets } = useAssets();
+  useCanvasImageDrawer(canvasRef, assets.find((a) => a.key === "ears")?.value);
   return <canvas width={514} height={546} id="ears" ref={canvasRef}></canvas>;
 };
 
 const Nose = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { assets, updateCanvasRef } = useAssets();
-  useCanvasImageDrawer(canvasRef, assets.nose?.value);
-  useEffect(() => {
-    updateCanvasRef("nose", canvasRef);
-  }, [canvasRef]);
+  const { assets } = useAssets();
+  useCanvasImageDrawer(canvasRef, assets.find((a) => a.key === "nose")?.value);
   return <canvas width={514} height={546} id="nose" ref={canvasRef}></canvas>;
 };
 
 const Mouth = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { assets, updateCanvasRef } = useAssets();
-  useCanvasImageDrawer(canvasRef, assets.mouth?.value);
-  useEffect(() => {
-    updateCanvasRef("mouth", canvasRef);
-  }, [canvasRef]);
+  const { assets } = useAssets();
+  useCanvasImageDrawer(canvasRef, assets.find((a) => a.key === "mouth")?.value);
   return <canvas width={514} height={546} id="mouth" ref={canvasRef}></canvas>;
 };
 
 const Accessory = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { assets, updateCanvasRef } = useAssets();
-  useCanvasImageDrawer(canvasRef, assets.accessory?.value);
-  useEffect(() => {
-    updateCanvasRef("accessory", canvasRef);
-  }, [canvasRef]);
+  const { assets } = useAssets();
+  useCanvasImageDrawer(
+    canvasRef,
+    assets.find((a) => a.key === "accessory")?.value,
+  );
   return (
     <canvas width={514} height={546} id="accessory" ref={canvasRef}></canvas>
   );

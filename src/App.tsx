@@ -7,7 +7,6 @@ import InfoIcon from "@assets/icons/info-icon.svg?react";
 
 import { button } from "./styles/common";
 import { Character } from "./components/displays/Character";
-import { Assets } from "./types/characterGenerator";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -82,17 +81,16 @@ const downloadCharacterAsPNG = async (assets: Assets) => {
   combinedCanvas.height = 546;
   const ctx = combinedCanvas.getContext("2d");
 
-  const canvases = Object.values(assets)
-    .map((asset) => asset.canvasRef?.current)
-    .filter((curr) => curr) as HTMLCanvasElement[];
+  const canvases = assets
+    .map((asset) => {
+      const selector = `#${asset.key}`;
+      return document.querySelector(selector) as HTMLCanvasElement;
+    })
+    .filter((curr) => curr);
 
-  try {
-    canvases.forEach((canvas) => {
-      ctx!.drawImage(canvas, 0, 0);
-    });
-  } catch (e) {
-    console.log(e);
-  }
+  canvases.forEach((canvas) => {
+    ctx && ctx.drawImage(canvas, 0, 0);
+  });
 
   const imageURL = combinedCanvas.toDataURL("image/png");
 
